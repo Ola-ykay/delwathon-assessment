@@ -4,11 +4,16 @@
     <form class="login_form" @submit.prevent="login">
       <div>
         <label for="email">Email:</label>
-        <input type="email" id="email" v-model="details.email" required/>
+        <input type="email" id="email" v-model="details.email" required />
       </div>
       <div>
         <label for="password">Password:</label>
-        <input type="password" id="password" v-model="details.password" required/>
+        <input
+          type="password"
+          id="password"
+          v-model="details.password"
+          required
+        />
       </div>
       <button type="submit">Login</button>
     </form>
@@ -17,42 +22,42 @@
 </template>
 
 <script>
-import axios from 'axios';
+import axios from "axios";
 export default {
   data() {
     return {
       details: {
-        email: '',
-        password: '',
+        email: "",
+        password: "",
       },
-      errorMessage: '',
+      errorMessage: "",
     };
   },
   methods: {
     login() {
-      const loginEndpoint = 'https://eduthon-api.delwathon.com/api/login';
-      const credentials={
+      const loginEndpoint = "https://eduthon-api.delwathon.com/api/login";
+      const credentials = {
         email: this.details.email,
         password: this.details.password,
       };
-        axios.post(loginEndpoint, credentials)
-        .then(response => {
+      axios
+        .post(loginEndpoint, credentials)
+        .then((response) => {
           const token = response.data.token;
 
-          console.log('Token:', token);
-          this.$store.commit('setAuthToken', token);
-          this.$router.push('/dashboardPage')
+          console.log("Token:", token);
+          this.$store.commit("setAuthToken", token);
+          this.$router.push("/dashboardPage");
         })
-        .catch(error => {
-          console.log('Login error:', error);
+        .catch((error) => {
+          console.log("Login error:", error);
         });
-   
     },
     someMethod() {
-    const token = this.$store.state.authToken;
-    console.log('Token from Vuex store:', token);
-    // You can use the token for subsequent API requests or any other operations.
-  },
+      const token = this.$store.state.authToken;
+      console.log("Token from Vuex store:", token);
+      // You can use the token for subsequent API requests or any other operations.
+    },
   },
 };
 </script>
@@ -62,7 +67,7 @@ export default {
   max-width: 400px;
   margin: 10% auto;
   padding: 20px;
- 
+
   width: 500px;
   height: 40vh;
   display: block;
@@ -74,7 +79,6 @@ export default {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-
 }
 .login_form div {
   margin-bottom: 20px;
@@ -116,9 +120,9 @@ export default {
 
 @media screen and (max-width: 768px) {
   .login_container {
-  width: 400px;
+    width: 400px;
   }
-  .login_form label{
+  .login_form label {
     width: 80px;
   }
 }
